@@ -1,0 +1,45 @@
+{
+	"name": "Game night list",
+	"members": [
+		{
+			"uuId": "777-555",
+			"name": "John Doe"
+		},
+		{
+			"uuId": "777-666",
+			"name": "Jane Doe"
+		},
+		{
+			"uuId": "345-678",
+			"name": "Leo Snufflepaws"
+		}
+	],
+	"items": [
+		{
+			"id": "6563a5dff5667d1424a170c7",
+			"name": "Games",
+			"solved": false
+		},
+		{
+			"id": "6563a5edf5667d1424a170c8",
+			"name": "Rum",
+			"solved": true
+		},
+		{
+			"id": "6563a5f5f5667d1424a170c9",
+			"name": "Sprite",
+			"solved": false
+		}
+	],
+	"archived": true,
+	"creatorUuId": "2203-4440-1520-0000",
+	"creatorName": "Barbora Šimordová",
+	"awid": "22222222222222222222222222222222",
+	"sys": {
+		"cts": "2023-11-26T20:07:39.724Z",
+		"mts": "2023-11-26T20:13:26.156Z",
+		"rev": 6
+	},
+	"id": "6563a58bf4cf5b5a02df794f",
+	"uuAppErrorMap": {}
+}

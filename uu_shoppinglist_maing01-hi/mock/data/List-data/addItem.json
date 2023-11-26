@@ -1,0 +1,41 @@
+{
+	"name": "Party List",
+	"members": [
+		{
+			"uuId": "777-555",
+			"name": "John Doe"
+		},
+		{
+			"uuId": "777-666",
+			"name": "Jane Doe"
+		}
+	],
+	"items": [
+		{
+			"id": "6563a5dff5667d1424a170c7",
+			"name": "Games",
+			"solved": false
+		},
+		{
+			"id": "6563a5edf5667d1424a170c8",
+			"name": "Rum",
+			"solved": false
+		},
+		{
+			"id": "6563a5f5f5667d1424a170c9",
+			"name": "Sprite",
+			"solved": false
+		}
+	],
+	"archived": false,
+	"creatorUuId": "2203-4440-1520-0000",
+	"creatorName": "Barbora Šimordová",
+	"awid": "22222222222222222222222222222222",
+	"sys": {
+		"cts": "2023-11-26T20:07:39.724Z",
+		"mts": "2023-11-26T20:09:25.813Z",
+		"rev": 3
+	},
+	"id": "6563a58bf4cf5b5a02df794f",
+	"uuAppErrorMap": {}
+}

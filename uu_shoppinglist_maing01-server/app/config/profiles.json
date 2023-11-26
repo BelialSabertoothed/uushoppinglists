@@ -1,0 +1,71 @@
+{
+  "{asid}": {
+    "profileList": ["AsidAuthorities", "AsidExecutives", "AsidLicenseOwner", "Public"],
+    "useCaseMap": {
+    }
+  },
+  "*": {
+    "profileList": ["Authorities", "Executives", "AwidLicenseOwner", "Creators", "Public", "Authenticated", "AwidInitiator"],
+    "useCaseMap": {
+      "sys/uuAppWorkspace/init": {
+        "sysStateList": ["created", "assigned"],
+        "profileList": ["AwidLicenseOwner", "AwidInitiator"]
+      },
+      "sys/uuAppWorkspace/load": {
+        "sysStateList": ["active"],
+        "profileList": ["Authenticated"]
+      },
+      "sys/uuAppWorkspace/loadBasicData": {
+        "sysStateList": ["active"],
+        "profileList": ["Public"]
+      },
+      "defaultUve": {
+        "profileList": ["Public"]
+      },
+      "sys/uuAppWorkspace/initUve": {
+        "sysStateList": ["created"],
+        "profileList": ["Public", "AwidLicenseOwner"]
+      },
+      "list/create": {
+        "sysStateList": ["active"],
+        "profileList": ["Creators"]
+      },
+      "list/list": {
+        "sysStateList": ["active"],
+        "profileList": ["Creators"]
+      },
+      "list/get": {
+        "sysStateList": ["active"],
+        "profileList": ["Creators"]
+      },
+      "list/addMember": {
+        "sysStateList": ["active"],
+        "profileList": ["Creators"]
+      },
+      "list/addItem": {
+        "sysStateList": ["active"],
+        "profileList": ["Creators"]
+      },
+      "list/update": {
+        "sysStateList": ["active"],
+        "profileList": ["Creators"]
+      },
+      "list/updateItem": {
+        "sysStateList": ["active"],
+        "profileList": ["Creators"]
+      },
+      "list/delete": {
+        "sysStateList": ["active"],
+        "profileList": ["Creators"]
+      },
+      "list/deleteItem": {
+        "sysStateList": ["active"],
+        "profileList": ["Creators"]
+      },
+      "list/deleteMember": {
+        "sysStateList": ["active"],
+        "profileList": ["Creators"]
+      }
+    }
+  }
+}

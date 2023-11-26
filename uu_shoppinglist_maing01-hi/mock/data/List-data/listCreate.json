@@ -1,0 +1,25 @@
+{
+	"name": "Party List",
+	"members": [
+		{
+			"uuId": "777-555",
+			"name": "John Doe"
+		},
+		{
+			"uuId": "777-666",
+			"name": "Jane Doe"
+		}
+	],
+	"items": [],
+	"archived": false,
+	"creatorUuId": "2203-4440-1520-0000",
+	"creatorName": "Barbora Šimordová",
+	"awid": "22222222222222222222222222222222",
+	"sys": {
+		"cts": "2023-11-25T13:04:06.417Z",
+		"mts": "2023-11-25T13:04:06.417Z",
+		"rev": 0
+	},
+	"id": "6561f0c672348afcef6310c3",
+	"uuAppErrorMap": {}
+}

@@ -1,0 +1,81 @@
+{
+  "{vendor}-{uuApp}-{uuSubApp}": {
+    "useCaseMap": {
+      "sys/uuAppWorkspace/init": {
+        "realization": "api/controllers/ShoppinglistMainController.init",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
+      "sys/uuAppWorkspace/load": {
+        "realization": "api/controllers/ShoppinglistMainController.load",
+        "httpMethod": "GET",
+        "type": "CMD"
+      },
+      "sys/uuAppWorkspace/loadBasicData": {
+        "realization": "api/controllers/ShoppinglistMainController.loadBasicData",
+        "httpMethod": "GET",
+        "type": "CMD"
+      },
+      "defaultUve": {
+        "realization": "index.html",
+        "httpMethod": "GET",
+        "type": "UVE"
+      },
+      "sys/uuAppWorkspace/initUve": {
+        "realization": "index.html",
+        "httpMethod": "GET",
+        "type": "UVE"
+      },
+      "list/create": {
+        "realization": "api/controllers/ListController.create",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
+      "list/list": {
+        "realization": "api/controllers/ListController.list",
+        "httpMethod": "GET",
+        "type": "CMD"
+      },
+      "list/get": {
+        "realization": "api/controllers/ListController.get",
+        "httpMethod": "GET",
+        "type": "CMD"
+      },
+      "list/addMember": {
+        "realization": "api/controllers/ListController.addMember",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
+      "list/addItem": {
+        "realization": "api/controllers/ListController.addItem",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
+      "list/update": {
+        "realization": "api/controllers/ListController.update",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
+      "list/updateItem": {
+        "realization": "api/controllers/ListController.updateItem",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
+      "list/delete": {
+        "realization": "api/controllers/ListController.delete",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
+      "list/deleteItem": {
+        "realization": "api/controllers/ListController.deleteItem",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
+      "list/deleteMember": {
+        "realization": "api/controllers/ListController.deleteMember",
+        "httpMethod": "POST",
+        "type": "CMD"
+      }
+    }
+  }
+}

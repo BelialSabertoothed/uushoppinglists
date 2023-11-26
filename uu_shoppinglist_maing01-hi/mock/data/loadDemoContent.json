@@ -1,0 +1,75 @@
+{
+  "title": {
+    "cs": "Zkušební data",
+    "en": "Testing data"
+  },
+  "name": "Testing data",
+  "description": "<uu5string/><p>Testing mock data loaded from local file.</p><p>For switching off mock data and calling server API change parameter \"useMockData\": false in configuration file in &lt;*-hi&gt;/env/development.json</p>",
+  "languages": [
+    "cs",
+    "en"
+  ],
+
+  "data": {
+
+	"name": "Party List",
+	"members": [
+		{
+			"uuId": "777-555",
+			"name": "Luna Purrington"
+		},
+		{
+			"uuId": "777-666",
+			"name": "Oliver Whiskertail"
+		}
+	],
+	"items": [
+		{
+			"id": "69610638e128f14b81f5c68d",
+			"name": "Chips",
+			"solved": false
+		},
+		{
+			"id": "65610638e130f14b81f5c68d",
+			"name": "Wine",
+			"solved": false
+		},
+		{
+			"id": "69614638e128f14b81f5c68d",
+			"name": "Beer",
+			"solved": false
+		},
+		{
+			"id": "69619638e128f14b81f5c68d",
+			"name": "Popcorn",
+			"solved": false
+		},
+		{
+			"id": "69617638e128f14b81f5c67d",
+			"name": "Coke",
+			"solved": false
+		},
+		{
+			"id": "6561ef4a8ab6a164249a21a3",
+			"name": "Games",
+			"solved": false
+		}
+	],
+	"archived": false,
+	"creatorUuId": "2203-4440-1520-0000",
+	"creatorName": "Barbora Šimordová",
+	"awid": "22222222222222222222222222222222",
+	"sys": {
+		"cts": "2023-11-24T22:19:57.470Z",
+		"mts": "2023-11-25T12:57:46.096Z",
+		"rev": 6
+	},
+	"id": "6561218d8eddf2f1fe75b147"
+},
+
+  "sysData": {
+    "profileData": {
+      "uuIdentityProfileList": ["Creators"]
+    }
+  }
+}
