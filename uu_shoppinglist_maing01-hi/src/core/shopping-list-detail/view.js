@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent, useScreenSize, useRoute, useMemo } from "uu5g05";
+import { createVisualComponent, useScreenSize, useRoute, useMemo, Lsi} from "uu5g05";
 import { Grid, PlaceholderBox } from "uu5g05-elements";
 
 import { useShoppingListListContext } from "../shopping-list-list/shopping-list-list-context.js";
@@ -9,6 +9,7 @@ import ItemList from "./item-list.js";
 
 import Config from "./config/config.js";
 import MemberList from "./member-list.js";
+import importLsi from "../../lsi/import-lsi.js";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -42,6 +43,8 @@ const View = createVisualComponent({
     const { shoppingListList, handleUpdate, handleToggleState, handleDelete } = useShoppingListListContext();
     const { loggedUser } = useUserContext();
 
+  
+
     const shoppingListDetail = useMemo(() => {
       return shoppingListList.find((shoppingList) => {
         return shoppingList.id === detailId;
@@ -51,16 +54,19 @@ const View = createVisualComponent({
     const isOwner = loggedUser.id === shoppingListDetail?.owner;
     const isMember =
       loggedUser.id === shoppingListDetail?.owner || shoppingListDetail?.memberList?.includes(loggedUser.id);
+
+
     //@@viewOff:private
 
     //@@viewOn:render
     return (
-      <>
+      <div>
+
         {!shoppingListDetail && (
-          <PlaceholderBox code={"forbidden"} header={"Nákupní seznam s uvedeným ID neexistuje"} />
+          <PlaceholderBox code={"forbidden"} header={ <Lsi import={importLsi} path={["Detail", "warning"]} />} />
         )}
         {shoppingListDetail && !isMember && (
-          <PlaceholderBox code={"permission"} header={"Nejste členem zadaného nákupního seznamu"} />
+          <PlaceholderBox code={"permission"} header={<Lsi import={importLsi} path={["Detail", "warning2"]} />} />
         )}
         {shoppingListDetail && isMember && (
           <Grid templateColumns={["xs", "s"].includes(screenSize) ? "100%" : "60% 40%"}>
@@ -77,7 +83,7 @@ const View = createVisualComponent({
             <MemberList {...{ loggedUser, isOwner, shoppingListDetail, handleUpdate }} />
           </Grid>
         )}
-      </>
+      </div>
     );
     //@@viewOff:render
   },

@@ -32,5 +32,23 @@
   "Menu": {
     "home": "Welcome",
     "about": "About Application"
+  },
+  "List": {
+    "header": "List of Shopping Lists",
+    "buttonLabel": "Show archived",
+    "buttonLabel2": "Show active",
+    "create": "Create new List",
+    "inputLabel": "Name",
+    "owner": "owner:"
+  },
+  "Detail": {
+    "warning": "There is no shopping list with this ID",
+    "warning2": "You are not a member of the specified shopping list",
+    "header": "List of members",
+    "buttonLabel": "Show completed",
+    "delete": "Delete",
+    "archive": "Archive",
+    "unarchive": "Unarchive",
+    "owner": "owner"
   }
 }

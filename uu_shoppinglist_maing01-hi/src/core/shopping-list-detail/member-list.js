@@ -1,11 +1,11 @@
 //@@viewOn:imports
-import { createVisualComponent } from "uu5g05";
+import { createVisualComponent, Lsi } from "uu5g05";
 import { Block, Button, Grid, Line } from "uu5g05-elements";
 import { TextSelect } from "uu5g05-forms";
 
 import User from "../../bricks/user.js";
 import { useUserContext } from "../user-list/user-context.js";
-
+import importLsi from "../../lsi/import-lsi.js";
 import Config from "./config/config.js";
 //@@viewOff:imports
 
@@ -41,11 +41,11 @@ const MemberList = createVisualComponent({
 
     //@@viewOn:render
     return (
-      <Block card={"full"} header={"Seznam členů"} headerType={"title"} headerSeparator>
+      <Block card={"full"} header={<Lsi import={importLsi} path={["Detail", "header"]} />} headerType={"title"} headerSeparator>
         <Grid rowGap={"8px"}>
           <div style={{ display: "flex", alignItems: "center" }}>
             <User img={owner.img} name={owner.name} />
-            <div style={{ fontStyle: "italic", color: "grey", marginLeft: "8px" }}>(vlastník)</div>
+            <div style={{ fontStyle: "italic", color: "grey", marginLeft: "8px" }}>(<Lsi import={importLsi} path={["Detail", "owner"]} />)</div>
             {loggedUser.id === owner.id && <div style={{ color: "blue", marginLeft: "8px" }}>*</div>}
           </div>
           <Line size={"s"} style={{ margin: "4px 0" }} significance={"subdued"} />

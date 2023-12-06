@@ -32,5 +32,23 @@
   "Menu": {
     "home": "Vítejte",
     "about": "O aplikaci"
+  },
+  "List": {
+    "header": "Seznam nákupních seznamů",
+    "buttonLabel": "Zobrazit i archivované",
+    "buttonLabel2": "Zobrazit pouze otevřené",
+    "create": "Vytvořit nový seznam",
+    "inputLabel": "Název",
+    "owner": "vlastník:"
+  },
+  "Detail": {
+    "warning": "Nákupní seznam s uvedeným ID neexistuje",
+    "warning2": "Nejste členem zadaného nákupního seznamu",
+    "header": "Seznam členů",
+    "buttonLabel": "Zobrazit i splněné",
+    "delete": "Smazat",
+    "archive": "Archivovat",
+    "unarchive": "Obnovit",
+    "owner": "vlastník"
   }
 }

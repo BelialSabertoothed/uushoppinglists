@@ -1,89 +1,139 @@
 //@@viewOn:imports
-import { createComponent, useDataList, useEffect, useRef, useState } from "uu5g05";
+import { createComponent, useState, useMemo } from "uu5g05";
+
 import ShoppingListListContext from "./shopping-list-list-context";
 import { useUserContext } from "../user-list/user-context";
+
 import Config from "./config/config";
-import Calls from "calls";
 //@@viewOff:imports
 
+const INITIAL_VALUE = [
+  {
+    id: "cd8f0b48",
+    name: "Kaufland",
+    memberList: ["777-666", "123-456"],
+    itemList: [
+      { id: "d1bce180", name: "Cukr" },
+      { id: "d1bce48c", name: "Rohlíky (6)" },
+      { id: "d1bce5d6", name: "Mouka", checked: true },
+    ],
+    owner: "777-555",
+  },
+  {
+    id: "f4adaae0",
+    name: "Hornbach",
+    memberList: ["777-555", "789-012"],
+    itemList: [
+      { id: "d1bce70c", name: "Metr" },
+      { id: "d1bce82e", name: "Hřebíky" },
+      { id: "d1bce946", name: "Kladívko" },
+    ],
+    owner: "777-666",
+  },
+  {
+    id: "f4adae28",
+    name: "Drogerie",
+    memberList: ["777-666", "777-555", "789-012"],
+    itemList: [
+      { id: "d1bcee1e", name: "Papírové kapesníčky" },
+      { id: "d1bcef68", name: "Toaletní papír" },
+      { id: "d1bcf080", name: "Deodorant" },
+    ],
+    owner: "123-456",
+  },
+  {
+    id: "f4adb08a",
+    name: "Papírnictví",
+    memberList: ["123-456"],
+    itemList: [
+      { id: "d1bcf198", name: "Čtvrtka" },
+      { id: "fb149276", name: "Čterečkovaný sešit", checked: true },
+      { id: "fb1495d2", name: "Linkovaný sešit", checked: true },
+      { id: "fb149c76", name: "Obaly na sešity", checked: true },
+    ],
+    owner: "901-234",
+  },
+];
+
 export const ShoppingListListProvider = createComponent({
+  //@@viewOn:statics
   uu5Tag: Config.TAG + "ShoppingListListProvider",
+  //@@viewOff:statics
+
+  //@@viewOn:propTypes
+  propTypes: {},
+  //@@viewOff:propTypes
+
+  //@@viewOn:defaultProps
+  defaultProps: {},
+  //@@viewOff:defaultProps
 
   render(props) {
-    const [shoppingListList, setShoppingListList] = useState([]);
+    //@@viewOn:private
+    const [shoppingListList, setShoppingListList] = useState(INITIAL_VALUE);
+
     const { loggedUser } = useUserContext();
 
-    const shoppinglistDataList= useDataList({
-      onLoad: handleLoad,
-      onCreate: handleCreate,
-      onUpdate: handleUpdate,
-      onDelete: handleDelete,
-      initialDtoIn: {},
-    });
+    const userShoppingList = useMemo(() => {
+      return shoppingListList.filter((shoppingList) => {
+        return shoppingList.owner === loggedUser.id || shoppingList.memberList.includes(loggedUser.id);
+      });
+    }, [loggedUser, shoppingListList]);
 
-    const imageUrlListRef = useRef([]);
+    const value = {
+      shoppingListList,
+      userShoppingList,
+      handleCreate: (dtoIn) => handleCreate(dtoIn, setShoppingListList),
+      handleUpdate: (dtoIn) => handleUpdate(dtoIn, setShoppingListList),
+      handleToggleState: (dtoIn) => handleToggleState(dtoIn, setShoppingListList),
+      handleDelete: (dtoIn) => handleDelete(dtoIn, setShoppingListList),
+    };
+    //@@viewOff:private
 
-    useEffect(() => {
-      // We don't use it to store reference on another React component
-      // eslint-disable-next-line uu5/hooks-exhaustive-deps
-      return () => imageUrlListRef.current.forEach((url) => URL.revokeObjectURL(url));
-      // We want to trigger this effect only once.
-      // eslint-disable-next-line uu5/hooks-exhaustive-deps
-    }, []);
-
-    async function handleLoad(dtoIn) {
-      try {
-        const shoppingLists = await Calls.Shoppinglist.list(dtoIn);
-        setShoppingListList(shoppingLists);
-        return { itemMap: shoppingLists.reduce((acc, item) => ({ ...acc, [item.id]: item }), {}) };
-      } catch (error) {
-        console.error("Error fetching shopping lists:", error);
-        return { error };
-      }
-    }
-
-    async function handleCreate(values) {
-      try {
-        const newShoppingList = await Calls.Shoppinglist.create(values);
-        setShoppingListList((current) => [...current, newShoppingList]);
-        return { item: newShoppingList };
-      } catch (error) {
-        console.error("Error creating shopping list:", error);
-        return { error };
-      }
-    }
-
-    async function handleUpdate(dtoIn) {
-      try {
-        const updatedShoppingList = await Calls.Shoppinglist.update(dtoIn);
-        setShoppingListList((current) =>
-          current.map((item) => (item.id === updatedShoppingList.id ? updatedShoppingList : item))
-        );
-        return { item: updatedShoppingList };
-      } catch (error) {
-        console.error("Error updating shopping list:", error);
-        return { error };
-      }
-    }
-
-    async function handleDelete(dtoIn) {
-      try {
-        await Calls.Shoppinglist.delete(dtoIn);
-        setShoppingListList((current) => current.filter((item) => item.id !== dtoIn.id));
-        return {};
-      } catch (error) {
-        console.error("Error deleting shopping list:", error);
-        return { error };
-      }
-    }
-
+    //@@viewOn:render
     return (
-      <ShoppingListListContext.Provider value={{ shoppinglistDataList }}>
-        {typeof props.children === "function" ? props.children(shoppinglistDataList) : props.children}
+      <ShoppingListListContext.Provider value={value}>
+        {typeof props.children === "function" ? props.children(value) : props.children}
       </ShoppingListListContext.Provider>
     );
+    //@@viewOff:render
   },
 });
 
+function handleCreate(dtoIn, setShoppingListList) {
+  setShoppingListList((current) => {
+    const newSchoppingListList = current.slice();
+    newSchoppingListList.push(dtoIn);
+    return newSchoppingListList;
+  });
+}
+
+function handleUpdate(dtoIn, setShoppingListList) {
+  setShoppingListList((current) => {
+    const newSchoppingListList = current.slice();
+    const shoppingListIndex = newSchoppingListList.findIndex((item) => item.id === dtoIn.id);
+    newSchoppingListList[shoppingListIndex] = dtoIn;
+    return newSchoppingListList;
+  });
+}
+
+function handleToggleState(dtoIn, setShoppingListList) {
+  setShoppingListList((current) => {
+    const newSchoppingListList = current.slice();
+    const shoppingListIndex = newSchoppingListList.find((item) => item.id === dtoIn.id);
+    dtoIn.archived = !dtoIn.archived;
+    newSchoppingListList[shoppingListIndex] = dtoIn;
+    return newSchoppingListList;
+  });
+}
+
+function handleDelete(dtoIn, setShoppingListList) {
+  setShoppingListList((current) => {
+    const newSchoppingListList = current.slice();
+    const index = newSchoppingListList.findIndex((item) => item.id === dtoIn.id);
+    if (index >= 0) newSchoppingListList.splice(index, 1);
+    return newSchoppingListList;
+  });
+}
+
 export default ShoppingListListProvider;
-//@@viewOff:exports

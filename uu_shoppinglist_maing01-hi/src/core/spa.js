@@ -15,7 +15,7 @@ const About = Utils.Component.lazy(() => import("../routes/about.js"));
 const InitAppWorkspace = Utils.Component.lazy(() => import("../routes/init-app-workspace.js"));
 const ControlPanel = Utils.Component.lazy(() => import("../routes/control-panel.js"));
 
-// homework exapmle components
+
 const ShoppingListList = Utils.Component.lazy(() => import("../routes/shopping-list-list.js"));
 const ShoppingListDetail = Utils.Component.lazy(() => import("../routes/shopping-list-detail.js"));
 

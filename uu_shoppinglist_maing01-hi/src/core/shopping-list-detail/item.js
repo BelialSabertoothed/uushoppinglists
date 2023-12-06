@@ -31,7 +31,7 @@ const Item = createVisualComponent({
     //@@viewOn:render
     return (
       <Uu5Elements.ListItem
-        significance="subdued"
+        significance="common"
         actionList={id && onDelete ? [{ icon: "uugds-close", onClick: onDelete }] : undefined}
       >
         <Uu5Forms.Checkbox.Input

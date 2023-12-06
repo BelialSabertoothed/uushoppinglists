@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { PropTypes, Utils, createVisualComponent, useState, useRoute, useMemo } from "uu5g05";
+import { Utils, createVisualComponent, useState, useRoute, useMemo, Lsi } from "uu5g05";
 import Uu5Elements, { Modal } from "uu5g05-elements";
 import { Form, FormText, SubmitButton } from "uu5g05-forms";
 
@@ -15,6 +15,7 @@ import { useUserContext } from "../user-list/user-context.js";
 import { useShoppingListListContext } from "./shopping-list-list-context.js";
 
 import Config from "./config/config.js";
+import importLsi from "../../lsi/import-lsi.js";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -32,22 +33,19 @@ let View = createVisualComponent({
   //@@viewOff:statics
 
   //@@viewOn:propTypes
-  propTypes: {shoppinglistDataList: PropTypes.object.isRequired,},
+  propTypes: {},
   //@@viewOff:propTypes
 
   //@@viewOn:defaultProps
   defaultProps: {},
   //@@viewOff:defaultProps
-
-  render(props) {
+  render() {
     //@@viewOn:private
     const { loggedUser } = useUserContext();
     const { userShoppingList, handleCreate } = useShoppingListListContext();
     const [showOpenedOnly, setShowOpenedOnly] = useState(true);
     const [isCreateModalOpened, setIsCreateModalOpened] = useState();
-    const list = props.detailDataList.data;
-    const [route, setRoute] = useRoute();
-    let { id } = list;
+    const [, setRoute] = useRoute();
 
     const filteredShoppingItemList = useMemo(() => {
       if (showOpenedOnly) {
@@ -65,7 +63,7 @@ let View = createVisualComponent({
     return (
       <Uu5Tiles.ControllerProvider data={filteredShoppingItemList || []}>
         <Uu5Elements.Block
-          header={"Seznam nákupních seznamů"}
+          header={<Lsi import={importLsi} path={["List", "header"]} />}
           headerSeparator
           headerType={"title"}
           actionList={[
@@ -79,7 +77,7 @@ let View = createVisualComponent({
             },
             {
               icon: showOpenedOnly ? "uugds-lock-closed" : "uugds-lock-open",
-              children: showOpenedOnly ? "Zobrazit i uzavřené" : "Zobrazit pouze otevřené",
+              children: showOpenedOnly ? <Lsi import={importLsi} path={["List", "buttonLabel"]} />:<Lsi import={importLsi} path={["List", "buttonLabel2"]} />,
               onClick: () => setShowOpenedOnly((current) => !current),
               className: Config.Css.css({
               backgroundColor: showOpenedOnly ? "#D9D9D9" : "rgba(9, 173, 234, 0.31)",
@@ -100,7 +98,7 @@ let View = createVisualComponent({
               }}
             >
               <Modal
-                header={"Vytvořit nákupní seznam"}
+                header={<Lsi import={importLsi} path={["List", "create"]} />}
                 open={true}
                 onClose={() => setIsCreateModalOpened(false)}
                 footer={
@@ -109,7 +107,7 @@ let View = createVisualComponent({
                   </div>
                 }
               >
-                <FormText label={"Název"} name={"name"} required />
+                <FormText label={<Lsi import={importLsi} path={["List", "inputLabel"]} />} name={"name"} required />
               </Modal>
             </Form.Provider>
           )}

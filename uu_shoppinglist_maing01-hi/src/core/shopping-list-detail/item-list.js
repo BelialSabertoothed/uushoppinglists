@@ -1,5 +1,5 @@
 //@@viewOn:imports
-import { createVisualComponent, Utils, useRoute, useState } from "uu5g05";
+import { createVisualComponent, Utils, useRoute, useState, Lsi } from "uu5g05";
 import { Block, Icon, Toggle } from "uu5g05-elements";
 import { Checkbox } from "uu5g05-forms";
 
@@ -8,7 +8,7 @@ import Uu5TilesControls from "uu5tilesg02-controls";
 import Uu5TilesElements from "uu5tilesg02-elements";
 
 import TextInput from "./text-input.js";
-
+import importLsi from "../../lsi/import-lsi.js";
 import Config from "../config/config.js";
 //@@viewOff:imports
 
@@ -18,7 +18,7 @@ import Config from "../config/config.js";
 const FILTER_LIST = [
   {
     key: "showChecked",
-    label: "Zobrazit i splněné",
+    label: <Lsi import={importLsi} path={["Detail", "buttonLabel"]} />,
     filter: (item, value) => {
       if (value) return true;
       else return !item.checked;
@@ -72,7 +72,7 @@ const ItemList = createVisualComponent({
                 />
                 {isOwner ? getHeaderInput({ style, shoppingListDetail, handleUpdate }) : shoppingListDetail.name}
 
-                <Toggle label="Zobrazit i splněné"
+                <Toggle label= {<Lsi import={importLsi} path={["Detail", "buttonLabel"]} />}
                   value={filterList.some((filter) => filter.key === "showChecked" && filter.value)}
                   size={"m"}
                   onChange={(e) => onFilterChange({ data: { filterList: [{ key: "showChecked", value: e.data.value }] } })}
@@ -84,13 +84,13 @@ const ItemList = createVisualComponent({
           actionList={[
             {
               icon: shoppingListDetail.archived ? "uugds-lock-open" : "uugds-lock-closed",
-              children: shoppingListDetail.archived ? "Otevřít" : "Uzavřít",
+              children: shoppingListDetail.archived ? <Lsi import={importLsi} path={["Detail", "archive"]} /> : <Lsi import={importLsi} path={["Detail", "unarchive"]} />,
               onClick: () => handleToggleState(shoppingListDetail),
               hidden: !isOwner,
             },
             {
               icon: "uugds-delete",
-              children: "Smazat",
+              children: <Lsi import={importLsi} path={["Detail", "delete"]} />,
               colorScheme: "negative",
               onClick: () => {
                 handleDelete(shoppingListDetail);

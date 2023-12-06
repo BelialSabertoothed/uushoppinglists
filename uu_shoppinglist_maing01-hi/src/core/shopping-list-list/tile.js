@@ -1,13 +1,13 @@
 //@@viewOn:imports
 import React from "react";
-import { createVisualComponent, useRoute } from "uu5g05";
+import { createVisualComponent, useRoute, Lsi } from "uu5g05";
 import { Grid, ListItem, Icon } from "uu5g05-elements";
 
 import Uu5TilesElements from "uu5tilesg02-elements";
 
 import User from "../../bricks/user.js";
 import { useUserContext } from "../user-list/user-context.js";
-
+import importLsi from "../../lsi/import-lsi.js";
 import Config from "./config/config.js";
 //@@viewOff:imports
 
@@ -79,7 +79,7 @@ const Tile = createVisualComponent({
                       gap: "8px",
                     }}
                   >
-                    <div style={{ fontStyle: "italic", color: "grey" }}>vlastník: </div>
+                    <div style={{ fontStyle: "italic", color: "grey" }}> <Lsi import={importLsi} path={["List", "owner"]} /> </div>
                     <User img={owner.img} name={owner.name} />
                   </div>
                 </div>
