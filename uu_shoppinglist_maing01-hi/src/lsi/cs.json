@@ -37,7 +37,8 @@
     "header": "Seznam nákupních seznamů",
     "buttonLabel": "Zobrazit i archivované",
     "buttonLabel2": "Zobrazit pouze otevřené",
-    "create": "Vytvořit nový seznam",
+    "modal": "Vytvořit nový seznam",
+    "create": "Vytvořit",
     "inputLabel": "Název",
     "owner": "vlastník:"
   },

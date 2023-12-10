@@ -37,7 +37,8 @@
     "header": "List of Shopping Lists",
     "buttonLabel": "Show archived",
     "buttonLabel2": "Show active",
-    "create": "Create new List",
+    "modal": "Create new list",
+    "create": "Create",
     "inputLabel": "Name",
     "owner": "owner:"
   },

@@ -35,6 +35,14 @@ const Get = {
       this.message = "DtoIn is not valid.";
     }
   },
+  UserNotAuthorized: class extends ShoppinglistMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.status = 403;
+      this.code = `${Get.UC_CODE}notAuthorized`;
+      this.message = "User not authorized to view this list.";
+    }
+  },
 };
 
 
@@ -46,6 +54,14 @@ const Update = {
       super(...arguments);
       this.code = `${Update.UC_CODE}invalidDtoIn`;
       this.message = "DtoIn is not valid.";
+    }
+  },
+  UserNotAuthorized: class extends ShoppinglistMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.status = 403;
+      this.code = `${Update.UC_CODE}notAuthorized`;
+      this.message = "User not authorized to update this list.";
     }
   },
 };
@@ -93,6 +109,14 @@ const Delete = {
         super(...arguments);
         this.code = `${Delete.UC_CODE}invalidDtoIn`;
         this.message = "DtoIn is not valid.";
+      }
+    },
+    UserNotAuthorized: class extends ShoppinglistMainUseCaseError {
+      constructor() {
+        super(...arguments);
+        this.status = 403;
+        this.code = `${Delete.UC_CODE}notAuthorized`;
+        this.message = "User not authorized to delete this list.";
       }
     },
   };

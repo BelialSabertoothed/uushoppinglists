@@ -17,6 +17,13 @@ class ListAbl {
   async create(dtoIn, awid, session) {
     try {
       const uuAppErrorMap = this.validateDto("listCreateDtoInType", dtoIn, Warnings.Create, Errors.Create, session);
+
+      if (dtoIn.items.length > 0) {
+        for (let i = 0; i < dtoIn.items.length; i++) {
+          dtoIn.items[i].id = new ObjectId();
+        }
+      }
+
       const uuIdentity = session.getIdentity().getUuIdentity();
       const uuIdentityName = session.getIdentity().getName();
 
@@ -50,12 +57,19 @@ class ListAbl {
     }
   }
 
-  async get(dtoIn, awid) {
+  async get(dtoIn, awid, session) {
     try {
-      const uuAppErrorMap = this.validateDto("listGetDtoInType", dtoIn, Warnings.Get, Errors.Get);
-      const dtoOut = await this.dao.get(awid, dtoIn.id);
-      dtoOut.uuAppErrorMap = uuAppErrorMap;
-      return dtoOut;
+      const uuAppErrorMap = this.validateDto("listGetDtoInType", dtoIn, Warnings.Get, Errors.Get, session);
+
+      const uuIdentity = session.getIdentity().getUuIdentity();
+
+      const result = await this.dao.get(awid, dtoIn.id);
+
+      if (result.creatorUuId !== uuIdentity && !result.members.find((member) => member.uuId === uuIdentity)) {
+        throw new Errors.Get.UserNotAuthorized({ uuAppErrorMap });
+      }
+
+      return { ...result, uuAppErrorMap };
     } catch (error) {
       console.error("Error in get:", error);
       throw error;
@@ -88,18 +102,32 @@ class ListAbl {
     }
   }
 
-  async update(dtoIn, awid) {
+  async update(dtoIn, awid, session) {
     try {
-      const uuAppErrorMap = this.validateDto("listUpdateDtoInType", dtoIn, Warnings.Update, Errors.Update);
-      const list = { name: dtoIn.name, archived: "archived" in dtoIn ? dtoIn.archived : undefined };
+      const uuAppErrorMap = this.validateDto("listUpdateDtoInType", dtoIn, Warnings.Update, Errors.Update, session);
+
+      const listBeforeUpdate = await this.dao.get(awid, dtoIn.id);
+
+      const uuIdentity = session.getIdentity().getUuIdentity();
+
+      if (listBeforeUpdate.creatorUuId !== uuIdentity) {
+        throw new Errors.Update.UserNotAuthorized({ uuAppErrorMap });
+      }
+
+      let list = {};
+
+      if (dtoIn.name) list.name = dtoIn.name;
+      if ("archived" in dtoIn) list.archived = dtoIn.archived;
+
       const dtoOut = await this.dao.update(awid, dtoIn.id, list);
-      dtoOut.uuAppErrorMap = uuAppErrorMap;
-      return dtoOut;
+      return { ...dtoOut, uuAppErrorMap };
     } catch (error) {
       console.error("Error in update:", error);
       throw error;
     }
   }
+
+
 
   async updateItem(dtoIn, awid) {
     try {
@@ -113,9 +141,18 @@ class ListAbl {
     }
   }
 
-  async delete(dtoIn, awid) {
+  async delete(dtoIn, awid, session) {
     try {
-      const uuAppErrorMap = this.validateDto("listDeleteDtoInType", dtoIn, Warnings.Delete, Errors.Delete);
+      const uuAppErrorMap = this.validateDto("listDeleteDtoInType", dtoIn, Warnings.Delete, Errors.Delete, session);
+
+      const list = await this.dao.get(awid, dtoIn.id);
+
+      const uuIdentity = session.getIdentity().getUuIdentity();
+
+      if (list.creatorUuId !== uuIdentity) {
+        throw new Errors.Delete.UserNotAuthorized({ uuAppErrorMap });
+      }
+
       const result = await this.dao.delete(awid, dtoIn.id);
       return { ...result, uuAppErrorMap };
     } catch (error) {
@@ -145,7 +182,6 @@ class ListAbl {
       throw error;
     }
   }
-
   validateDto(dtoType, dtoIn, warningCode, errorCode, session) {
     let uuAppErrorMap = {};
     const validationResult = this.validator.validate(dtoType, dtoIn);

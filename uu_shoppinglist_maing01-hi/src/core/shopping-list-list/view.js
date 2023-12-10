@@ -63,17 +63,15 @@ let View = createVisualComponent({
     return (
       <Uu5Tiles.ControllerProvider data={filteredShoppingItemList || []}>
         <Uu5Elements.Block
+          style={{ margin: '0 auto', maxWidth: '1800px', padding: '0 20px' }}
           header={<Lsi import={importLsi} path={["List", "header"]} />}
           headerSeparator
           headerType={"title"}
           actionList={[
             {
               icon: "uugds-plus",
+              children:<Lsi import={importLsi} path={["List", "create"]} />,
               onClick: () => setIsCreateModalOpened(true),
-              className: Config.Css.css({
-                color: "black",
-                fontSize: "18px",  
-              }),
             },
             {
               icon: showOpenedOnly ? "uugds-lock-closed" : "uugds-lock-open",
@@ -82,6 +80,7 @@ let View = createVisualComponent({
               className: Config.Css.css({
               backgroundColor: showOpenedOnly ? "#D9D9D9" : "rgba(9, 173, 234, 0.31)",
               color: "#5A5A5A",
+              margin: "2%"
               }),
             },
             { component: <Uu5TilesControls.SearchButton /> },
@@ -98,7 +97,7 @@ let View = createVisualComponent({
               }}
             >
               <Modal
-                header={<Lsi import={importLsi} path={["List", "create"]} />}
+                header={<Lsi import={importLsi} path={["List", "modal"]} />}
                 open={true}
                 onClose={() => setIsCreateModalOpened(false)}
                 footer={

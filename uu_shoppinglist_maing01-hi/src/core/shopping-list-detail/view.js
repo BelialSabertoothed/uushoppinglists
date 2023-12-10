@@ -6,6 +6,7 @@ import { useShoppingListListContext } from "../shopping-list-list/shopping-list-
 import { useUserContext } from "../user-list/user-context.js";
 
 import ItemList from "./item-list.js";
+//import PieChart from "./pie-chart.js";
 
 import Config from "./config/config.js";
 import MemberList from "./member-list.js";
@@ -60,7 +61,7 @@ const View = createVisualComponent({
 
     //@@viewOn:render
     return (
-      <div>
+      <div style={{ margin: '0 auto', maxWidth: '1800px', padding: '0 20px' }}>
 
         {!shoppingListDetail && (
           <PlaceholderBox code={"forbidden"} header={ <Lsi import={importLsi} path={["Detail", "warning"]} />} />
@@ -84,7 +85,9 @@ const View = createVisualComponent({
           </Grid>
         )}
       </div>
+      
     );
+    //<PieChart/>
     //@@viewOff:render
   },
 });

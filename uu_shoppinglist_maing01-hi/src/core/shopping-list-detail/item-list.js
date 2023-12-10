@@ -9,6 +9,7 @@ import Uu5TilesElements from "uu5tilesg02-elements";
 
 import TextInput from "./text-input.js";
 import importLsi from "../../lsi/import-lsi.js";
+
 import Config from "../config/config.js";
 //@@viewOff:imports
 
@@ -61,25 +62,27 @@ const ItemList = createVisualComponent({
         filterList={filterList}
         onFilterChange={onFilterChange}
       >
-        <Block
-          card={"full"}
-          header={({ style }) => {
-            return (
-              <>
-                <Icon
-                  style={{ fontSize: "20px", marginRight: "8px" }}
-                  icon={shoppingListDetail.archived ? "uugds-lock-closed" : "uugds-lock-open"}
-                />
-                {isOwner ? getHeaderInput({ style, shoppingListDetail, handleUpdate }) : shoppingListDetail.name}
-
-                <Toggle label= {<Lsi import={importLsi} path={["Detail", "buttonLabel"]} />}
-                  value={filterList.some((filter) => filter.key === "showChecked" && filter.value)}
-                  size={"m"}
-                  onChange={(e) => onFilterChange({ data: { filterList: [{ key: "showChecked", value: e.data.value }] } })}
-                  box/>
-              </>
-            );
-          }}
+        <div>
+     <Block
+  card={"full"}
+  header={({ style }) => (
+    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div>
+        <Icon
+          style={{ fontSize: "20px", marginRight: "8px" }}
+          icon={shoppingListDetail.archived ? "uugds-lock-closed" : "uugds-lock-open"}
+        />
+        <span>{shoppingListDetail.name}</span>
+      </div>
+      <Toggle
+        label={<Lsi import={importLsi} path={["Detail", "buttonLabel"]} />}
+        value={filterList.some((filter) => filter.key === "showChecked" && filter.value)}
+        style={{ marginLeft: "8px" }}
+        onChange={(e) =>
+          onFilterChange({ data: { filterList: [{ key: "showChecked", value: e.data.value }] } })
+        }/>
+    </div>
+     )}
           headerType={"title"}
           actionList={[
             {
@@ -156,6 +159,8 @@ const ItemList = createVisualComponent({
             ]}
           />
         </Block>
+        </div>
+
       </Uu5Tiles.ControllerProvider>
     );
     //@@viewOff:render
